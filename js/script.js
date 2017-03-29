@@ -37,7 +37,7 @@ $(function () {
         var correctAnswers = getCorrectAnswers();
 
         var result = compareAnswers(userAnswers, correctAnswers);
-        showModal(result ? 'Ok' : 'Вы не прошли тест');
+        showModal(result ? 'Тест пройден успешно!' : 'Все пропало.......');
     };
 
     function getUserAnswers () {
@@ -93,7 +93,7 @@ $(function () {
         $('body').append($modal);
 
         var $modalHeader = $('<h3>').addClass('modal-window_header').text('Результаты теста');
-        var $modalText = $('<p>').addClass('modal-window_text');
+        var $modalText = $('<p>').addClass('modal-window_text').text(message);
         var $button = $('<button>').addClass('btn btn-default').text('OK');
         $('.modal-window').append($modalHeader).append($modalText).append($button);
 
@@ -103,17 +103,13 @@ $(function () {
 
 
         $button.on('click', function () {
-            $modal.hide();
-            $overlay.hide();
+            $modal.remove();
+            $overlay.remove();
 
-            // var $chB = $('input').attr('checked','checked');
-            // $chB.removeAttr('checked');
+            $('input[type=checkbox]').prop('checked',false);
 
         });
-
-
     };
-
 
     var $button = $('.btn');
     $button.on('click', checkAnswers);

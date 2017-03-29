@@ -22,7 +22,7 @@
                 <% for (var i = 0; i < data.length; i++) { %>
                     <p class="question"><%= data[i].text %></p>
                     <% for (var j = 0; j < data[i].answers.length; j++) { %>
-                        <label class="answer"><input type="checkbox" quesID="<%= i%>" answID="<%= j%>"><%= data[i].answers[j] %></label>
+                        <label class="answer"><input class="checkedCheckbox" type="checkbox" quesID="<%= i%>" answID="<%= j%>"><%= data[i].answers[j] %></label>
                     <% }; %>
                 <% }; %>
 

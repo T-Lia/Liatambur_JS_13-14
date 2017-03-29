@@ -14,7 +14,6 @@ body {
 .wrapper {
 	width: 700px;
 	margin: 0 auto;
-	z-index: 10;
 }
 
 .header {
@@ -52,15 +51,13 @@ body {
 	height: 100%;
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
-	/*opacity: 0.5;*/
-	/*z-index: 100;*/
 }
 
 .modal-window {
 	position: absolute;
 	top: 270px;
 	left: 570px;
-	height: 240px;
+	height: 250px;
 	width: 400px;
 	background-color: #d9d9d9;
 	border: 7px ridge #ababab;
@@ -78,8 +75,9 @@ body {
 }
 
 .modal-window_text {
-	padding: 20px 20px 55px;
+	padding: 20px 20px 65px;
 	text-align: center;
 	font-family: Arial;
+	color: #040eab;
 	border-bottom: 1px solid #808080;
 }
