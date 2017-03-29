@@ -4,16 +4,21 @@
 }
 
 body {
-	background-color: #d5d5d5;
+	background: url("../img/1.jpg") no-repeat;
+	background-size: cover;
 }
+
+/*Test*/
+
 
 .wrapper {
 	width: 700px;
 	margin: 0 auto;
+	z-index: 10;
 }
 
 .header {
-	color: #761c19;
+	color: #000;
 	text-align: center;
 }
 
@@ -34,4 +39,47 @@ body {
 .btn {
 	display: block;
 	margin: 20px auto;
+	outline: none;
+	font-weight: bold;
+}
+
+/*Modal window*/
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	/*opacity: 0.5;*/
+	/*z-index: 100;*/
+}
+
+.modal-window {
+	position: absolute;
+	top: 270px;
+	left: 570px;
+	height: 240px;
+	width: 400px;
+	background-color: #d9d9d9;
+	border: 7px ridge #ababab;
+	opacity: 1;
+	z-index: 1000;
+	/*overflow: auto;*/
+}
+
+.modal-window_header {
+	margin: 0;
+	padding: 10px;
+	text-align: center;
+	font-family: Arial;
+	border-bottom: 3px double #808080;
+}
+
+.modal-window_text {
+	padding: 20px 20px 55px;
+	text-align: center;
+	font-family: Arial;
+	border-bottom: 1px solid #808080;
 }

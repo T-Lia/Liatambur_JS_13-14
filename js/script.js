@@ -1,94 +1,24 @@
 'use strict';
-//
-// var builder = {
-// 	questions: [],
-//
-// 	setHeader: function (header) {
-// 		this.headerText = header;
-// 	},
-//
-// 	addQuestion: function(quesText, answers) {
-// 		this.questions.push({
-// 			text: quesText,
-// 			answers: answers});
-// 	},
-//
-// 	buildHTML: function(parentElement) {
-// 		var wrapper = document.createElement('div');
-// 		wrapper.classList.add('wrapper');
-// 		parentElement.appendChild(wrapper);
-//
-// 		var header = document.createElement('h3');
-// 		header.classList.add('text-center');
-// 		header.innerHTML = this.headerText;
-// 		wrapper.appendChild(header);
-//
-// 		var questions = this.questions;
-//
-// 		for (var i = 0; i < questions.length; i++) {
-// 			var divQues = document.createElement('div');
-// 			divQues.classList.add('divQues');
-// 			wrapper.appendChild(divQues);
-//
-//
-// 			var question = document.createElement('p');
-// 			question.innerHTML = i + 1 + '. ' + questions[i].text;
-// 			divQues.appendChild(question);
-//
-// 			var answers = questions[i].answers;
-//
-// 			for (var j = 0; j < answers.length; j++) {
-// 				var chBoxContainer = document.createElement('div');
-// 				chBoxContainer.classList.add('chBoxContainer');
-// 				divQues.appendChild(chBoxContainer);
-//
-// 				var id = i + '_' + j;
-//
-// 				var checkbox = document.createElement('input');
-// 				chBoxContainer.appendChild(checkbox);
-// 				checkbox.setAttribute('type', 'checkbox');
-// 				checkbox.setAttribute('id', id);
-//
-// 				var answer = document.createElement('label');
-// 				answer.innerHTML = answers[j];
-// 				chBoxContainer.appendChild(answer);
-// 				answer.setAttribute('for', id);
-// 			}
-// 		}
-//
-// 		var button = document.createElement('button');
-// 		button.innerHTML = 'Проверить мои результаты';
-// 		wrapper.appendChild(button);
-// 		button.setAttribute('type', 'button');
-// 		button.classList.add('btn');
-// 		button.classList.add('btn-default');
-// 	}
-// };
-//
-// var ans = ['Вариант ответа №1', 'Вариант ответа №2', 'Вариант ответа №3'];
-//
-// builder.setHeader("Тест по программированию");
-// builder.addQuestion('Вопрос №1', ans);
-// builder.addQuestion('Вопрос №2', ans);
-// builder.addQuestion('Вопрос №3', ans);
-// builder.buildHTML(document.body);
 
 $(function () {
 
-	var quizData = {
+    var quizData = {
         title: 'Тест по HTML/CSS',
         data: [
             {
                 text: 'Что такое html?',
-                answers: ['Язык супертекстовой разметки', 'Язык гипертекстовой разметки', 'Язык для создания анимаций', 'Язык для отображения товаров на сайте']
+                answers: ['Язык супертекстовой разметки', 'Язык гипертекстовой разметки', 'Язык для создания анимаций', 'Язык для отображения товаров на сайте'],
+                correctAnswer: 1
             },
             {
                 text: 'Что такое css?',
-                answers: ['Язык, позволяющий выполнять запросы к серверу', 'Язык для генерации html', 'Язык для создания анимаций и отображения картинок', 'Язык для описания внешнего вида документа']
+                answers: ['Язык, позволяющий выполнять запросы к серверу', 'Язык для генерации html', 'Язык для создания анимаций и отображения картинок', 'Язык для описания внешнего вида документа'],
+                correctAnswer: 3
             },
             {
                 text: 'Для чего предназначен тег &lt;p&gt;?',
-                answers: ['Абзац текста', 'Структурный элемент разметки', 'Выделение жирным текстом', 'Подчеркивает важность контента']
+                answers: ['Абзац текста', 'Структурный элемент разметки', 'Выделение жирным текстом', 'Подчеркивает важность контента'],
+                correctAnswer: 0
             }
         ]
     };
@@ -99,10 +29,100 @@ $(function () {
 	var quizHTML = tmpl('quiz', quiz);
 
 	$('body').append(quizHTML);
+
+
+    function checkAnswers () {
+
+        var userAnswers = getUserAnswers();
+        var correctAnswers = getCorrectAnswers();
+
+        var result = compareAnswers(userAnswers, correctAnswers);
+        showModal(result ? 'Ok' : 'Вы не прошли тест');
+    };
+
+    function getUserAnswers () {
+        var $checkBoxs = $('input');
+        var userAnswers = [];
+
+        for ( var i = 0; i < $checkBoxs.length; i++) {
+            var checkBox = $checkBoxs[i];
+            if (checkBox.checked)
+                userAnswers.push(
+                    {
+                        ques: checkBox.getAttribute('quesID'),
+                        ans: checkBox.getAttribute('answID')
+                    }
+                );
+        }
+        return userAnswers;
+    }
+
+    function getCorrectAnswers() {
+        var correctAnswers = [];
+
+        for (var j = 0; j < quiz.data.length; j++) {
+            correctAnswers.push(
+                {
+                    ques: j,
+                    ans: quiz.data[j].correctAnswer
+                }
+            );
+        }
+        return correctAnswers;
+    }
+
+    function compareAnswers(actualAns, expectedAns) {
+        if (actualAns.length != expectedAns.length)
+            return false;
+
+        for ( var i = 0; i < actualAns.length; i++) {
+            if (actualAns[i].ques != expectedAns[i].ques || actualAns[i].ans != expectedAns[i].ans)
+                return false;
+        }
+        return true;
+    };
+
+    function createModal() {
+
+    };
+
+
+    function showModal (message) {
+
+        var $modal = $('<div>').addClass('modal-window');
+        $('body').append($modal);
+
+        var $modalHeader = $('<h3>').addClass('modal-window_header').text('Результаты теста');
+        var $modalText = $('<p>').addClass('modal-window_text');
+        var $button = $('<button>').addClass('btn btn-default').text('OK');
+        $('.modal-window').append($modalHeader).append($modalText).append($button);
+
+        var $overlay = $('<div>').addClass('overlay');
+        $('body').append($overlay);
+
+
+
+        $button.on('click', function () {
+            $modal.hide();
+            $overlay.hide();
+
+            // var $chB = $('input').attr('checked','checked');
+            // $chB.removeAttr('checked');
+
+        });
+
+
+    };
+
+
+    var $button = $('.btn');
+    $button.on('click', checkAnswers);
+
 });
 
-// console.log(questions);
-// console.log(quiz);
+
+
+
 
 
 
