@@ -38,7 +38,7 @@ $(function () {
 
         var result = compareAnswers(userAnswers, correctAnswers);
         showModal(result ? 'Тест пройден успешно!' : 'Все пропало.......');
-    };
+    }
 
     function getUserAnswers () {
         var $checkBoxs = $('input');
@@ -80,10 +80,6 @@ $(function () {
                 return false;
         }
         return true;
-    };
-
-    function createModal() {
-
     };
 
 

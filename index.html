@@ -11,26 +11,27 @@
     <script src="https://code.jquery.com/jquery-3.2.0.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/template.js"></script>
-    <script src="js/script.js"></script>
-
+    <!--<script src="js/script.js"></script>-->
+    <script src="js/newScript.js"></script>
 </head>
 <body>
 
     <script type="text/template" id="quiz">
         <div class="wrapper">
             <h1 class="header"><%= title %></h1>
-                <% for (var i = 0; i < data.length; i++) { %>
-                    <p class="question"><%= data[i].text %></p>
-                    <% for (var j = 0; j < data[i].answers.length; j++) { %>
-                        <label class="answer"><input class="checkedCheckbox" type="checkbox" quesID="<%= i%>" answID="<%= j%>"><%= data[i].answers[j] %></label>
+                <% for (var i = 0; i < questions.length; i++) { %>
+                    <p class="question"><%= questions[i].questionText %></p>
+                    <% for (var j = 0; j < questions[i].answers.length; j++) { %>
+                        <label class="answer">
+                            <input class="checkedCheckbox" type="checkbox" quesID="<%= i%>" answID="<%= j%>" onclick="">
+                            <%= questions[i].answers[j].text %>
+                        </label>
                     <% }; %>
                 <% }; %>
 
             <button class="btn btn-default">Проверить мои результаты</button>
         </div>
     </script>
-
-
 
 
 </body>
